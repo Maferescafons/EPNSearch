@@ -1,0 +1,84 @@
+<input hidden
+  id="idUsuario"
+  name="idUsuario"
+  value="<%=req.session.me%>">
+
+<font color="#449d44"> <h3> Bienvenido <%= User.name %></h3></font>
+
+<form action="/biblioteca">
+  <div class="form-group row">
+    <label for="busqueda" class="col-4 col-form-label">
+      <h5> Buscar dentro de mi biblioteca</h5>
+    </label>
+    <div class="col-8">
+      <input hidden
+        class="form-control"
+        type="text"
+        id="idUsuario"
+        name="idUsuario"
+        value="<%=User.id%>">
+      <input class="form-control" type="text" placeholder="Buscar en mi biblioteca" id="biblioteca"
+             name="biblioteca">
+    </div>
+  </div>
+  <button class="btn btn-success btn-block">Buscar</button>
+</form>
+
+<br>
+<br>
+
+
+<div class="row">
+  <% if(articulos.length ==0){ %>
+  <div class='col-10'>
+    <p ALIGN='justify'> <font color="#CEE3F6"> <h4> Aún no haz guardado artículos en tu biblioteca ve a  <a href="/busqueda">Búsqueda </a> y comienza a hacerlo</h4></font></p>
+    </div>
+  <%}%>
+<% for(var i=0;i<articulos.length;i++){ %>
+
+  <div class="card" style="width: 80rem;">
+    <div class="card-block">
+
+      <h5 class="card-title"><b><a href="<%=articulos[i].link%>"><%=articulos[i].title%></a></b></h5>
+      <p class="card-text"><h6><%=articulos[i].authores%>, "<%=articulos[i].title%>", <i><%=articulos[i].journal%></i>, vol.<%=articulos[i].volume%>, no.<%=articulos[i].number%>, pp.<%=articulos[i].pages%>, <%=articulos[i].year%></h6></p>
+    </div>
+
+    <div class="card-block">
+      <form action="/Articulo/eliminarArticulo" method="post">
+        <input hidden
+               type="text"
+               value="<%=articulos[i].id%>"
+               name="id">
+        <button  type="submit"
+                 class="btn btn-outline-danger">Borrar</button>
+
+        <a href="/VerArticulo?id=<%=articulos[i].id%>">
+          <button type="button" class="btn btn-primary">
+            Ver
+          </button>
+        </a>
+      </form>
+    </div>
+  </div>
+  <%}%>
+</div>
+<hr>
+
+
+
+<a target="_blank" href="/mibiblioteca">
+  <button type="button" class="btn btn-primary btn-lg btn-block">
+    Ver artículos añadidos por mi
+  </button>
+</a>
+<br>
+<a target="_blank" href="http://localhost/wikindx/index.php?action=list_LISTRESOURCES_CORE&method=processGeneral&list_Order=title">
+  <button type="button" class="btn btn-primary btn-lg btn-block">
+    Ver en WIKINDX
+  </button>
+</a>
+<br>
+<br>
+<br>
+<hr>
+

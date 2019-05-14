@@ -1,0 +1,59 @@
+<input hidden
+  id="idUsuario"
+  name="idUsuario"
+  value="<%=req.session.me%>">
+
+<form action="/mibiblioteca">
+  <div class="form-group row">
+    <input hidden
+      class="form-control"
+      type="text"
+      id="idUsuario"
+      name="idUsuario"
+      value="<%=User.id%>">
+    <label for="mibusqueda" class="col-4 col-form-label">
+     <h5>Buscar dentro de mi biblioteca</h5>
+    </label>
+    <div class="col-8">
+      <input class="form-control" type="text" placeholder="Buscar en mi biblioteca" id="mibiblioteca"
+             name="mibiblioteca">
+    </div>
+  </div>
+  <button class="btn btn-success btn-block">Buscar</button>
+</form>
+
+<br>
+<br>
+
+<div class="row">
+  <% for(var i=0;i<MiArticulo.length;i++){ %>
+  <div class="card" style="width: 80rem ;">
+    <div class="card-block">
+      <h5 class="card-title"><b><a href="<%=MiArticulo[i].link%>"><%=MiArticulo[i].title%></a></b></h5>
+      <p class="card-text"><h6><%=MiArticulo[i].authors%>, "<%=MiArticulo[i].title%>", <i><%=MiArticulo[i].journal%></i>, vol.<%=MiArticulo[i].volume%>, no.<%=MiArticulo[i].number%>, pp.<%=MiArticulo[i].pages%>, <%=MiArticulo[i].year%></h6></p>
+    </div>
+
+    <div class="card-block">
+      <form action="/Saludo/eliminarmiArticulo" method="post">
+        <input hidden
+               type="text"
+               value="<%=MiArticulo[i].id%>"
+               name="id">
+        <button  type="submit"
+                 class="btn btn-outline-danger">Borrar</button>
+
+        <a href="/VerMisArticulo?id=<%=MiArticulo[i].id%>">
+          <button type="button" class="btn btn-primary">
+            Ver
+          </button>
+        </a>
+      </form>
+    </div>
+  </div>
+  <%}%>
+</div>
+<hr>
+<br>
+<br>
+<br>
+
